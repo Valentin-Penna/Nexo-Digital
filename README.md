@@ -37,20 +37,11 @@ Las rutas del servidor:
 
 El código está en `src/main/java/com/nexodigital`: los servlets en `controller` y el acceso a datos en `model`. La parte del navegador está en `src/main/webapp/view`.
 
-## Arrancarlo
+## Por qué estas tecnologías
 
-Hace falta Docker.
-
-```bash
-docker compose up --build
-```
-
-- La web queda en http://localhost:8080
-- phpMyAdmin, para mirar la base de datos, en http://localhost:8081
-
-La base de datos se crea sola la primera vez con `mysql/init/bd_noticias.sql`, que también da de alta un administrador de prueba.
-
-El `Dockerfile` compila el proyecto con Maven y lo deja en un Tomcat. Con ese mismo archivo y `railway.json` se desplegó en Railway.
+- **Jakarta EE y JDBC, sin frameworks.** Hacer a mano cada capa (servlet, DAO, consulta SQL) obliga a entender lo que Spring o un ORM harían por debajo: sesiones, peticiones HTTP, conexiones y consultas.
+- **MySQL**, una base de datos relacional, porque las noticias y los usuarios encajan bien en tablas.
+- **Docker.** La aplicación, MySQL y phpMyAdmin se levantan juntos con Docker Compose, y la base de datos se crea sola con su esquema. El mismo `Dockerfile`, que compila con Maven y sirve la aplicación en Tomcat, es el que usa el despliegue en Railway.
 
 ## Lo que le falta
 
