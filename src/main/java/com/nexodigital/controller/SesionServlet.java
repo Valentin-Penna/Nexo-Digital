@@ -31,26 +31,14 @@ public class SesionServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-
-        String action = request.getParameter("action");
-
-        if ("logout".equals(action)) {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
-            out.print("{\"status\":\"success\", \"message\":\"Sesión cerrada\"}");
-        } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            out.print("{\"status\":\"error\", \"message\":\"Acción no reconocida\"}");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
         }
 
-        out.flush();
+        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 }

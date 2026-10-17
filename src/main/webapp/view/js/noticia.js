@@ -34,7 +34,7 @@ function cargarNoticiaIndividual() {
         return;
     }
 
-    fetch('../api/noticias/obtener?id=' + idNoticiaUrl, {
+    fetch('../api/noticias/' + encodeURIComponent(idNoticiaUrl), {
         method: 'GET'
     })
         

@@ -57,9 +57,7 @@ function cerrarSesion(eventoClick) {
     eventoClick.preventDefault();
 
     fetch('../api/sesion', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'action=logout'
+        method: 'DELETE'
     })
         
         .then(function(respuestaServidor) {
@@ -76,7 +74,7 @@ var listaNoticiasGlobales = [];
 
 function cargarNoticiasAdmin() {
     
-    fetch('../api/noticias/listar', {
+    fetch('../api/noticias', {
         method: 'GET'
     })
         
@@ -193,16 +191,19 @@ function guardarNoticia(eventoSubmit) {
     var idNoticia = datosDelFormulario.get('id');
 
     var urlDestinoBackend;
+    var metodoHttp;
     if (idNoticia) {
         
-        urlDestinoBackend = '../api/noticias/actualizar';
+        urlDestinoBackend = '../api/noticias/' + idNoticia;
+        metodoHttp = 'PUT';
     } else {
         
         urlDestinoBackend = '../api/noticias';
+        metodoHttp = 'POST';
     }
 
     fetch(urlDestinoBackend, {
-        method: 'POST',
+        method: metodoHttp,
         body: datosDelFormulario
     })
         
@@ -233,10 +234,8 @@ function eliminarNoticia(idNoticia) {
 
     if (!confirm('¿Seguro que deseas eliminar esta noticia?')) return;
 
-    fetch('../api/noticias/eliminar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'id=' + idNoticia
+    fetch('../api/noticias/' + idNoticia, {
+        method: 'DELETE'
     })
         
         .then(function(respuestaServidor) {

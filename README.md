@@ -25,14 +25,14 @@ MySQL 8
 
 Está escrito en Java 21 y se compila con Maven. Las respuestas van en JSON con Gson.
 
-Las rutas del servidor:
+Las noticias se exponen como un recurso REST, con un único servlet que atiende cada verbo HTTP:
 
-- `GET /api/noticias/listar` devuelve todas las noticias.
-- `GET /api/noticias/obtener?id=` devuelve una.
-- `POST /api/noticias` crea una noticia.
-- `POST /api/noticias/actualizar` la modifica.
-- `POST /api/noticias/eliminar` la borra.
-- `POST /api/login` y `/api/sesion` abren, consultan y cierran la sesión.
+- `GET /api/noticias` devuelve todas las noticias.
+- `GET /api/noticias/{id}` devuelve una.
+- `POST /api/noticias` crea una y responde `201 Created` con su ruta en la cabecera `Location`.
+- `PUT /api/noticias/{id}` la modifica.
+- `DELETE /api/noticias/{id}` la borra y responde `204 No Content`.
+- `POST /api/login` abre la sesión del administrador; `GET /api/sesion` la consulta y `DELETE /api/sesion` la cierra.
 - `GET /uploads/*` entrega las imágenes.
 
 El código está en `src/main/java/com/nexodigital`: los servlets en `controller` y el acceso a datos en `model`. La parte del navegador está en `src/main/webapp/view`.

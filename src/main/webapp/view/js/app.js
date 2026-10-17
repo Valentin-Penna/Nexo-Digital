@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function cargarNoticias() {
 
-    return fetch('../api/noticias/listar', {
+    return fetch('../api/noticias', {
         method: 'GET'
     })
         
